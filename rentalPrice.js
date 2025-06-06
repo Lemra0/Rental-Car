@@ -20,7 +20,9 @@ function calculateRentalPrice(pickup, dropoff, pickupDate, dropoffDate, carType,
     if (validationError) return validationError;
 
     let basePricePerDay = driverAge;
-    let totalPrice = basePricePerDay * rentalDays;
+    const weekdayCount = rentalDays - weekendCount;
+    let totalPrice = (basePricePerDay * weekdayCount) + (basePricePerDay * 1.05 * weekendCount);
+
 
     if (carClass === "Racer" && driverAge <= 25 && season === "High") {
         totalPrice *= RACER_YOUNG_DRIVER_PENALTY;
@@ -40,10 +42,6 @@ function calculateRentalPrice(pickup, dropoff, pickupDate, dropoffDate, carType,
 
     if (experienceYears < 3 && season === "High") {
         totalPrice += ADDITIONAL_FEE_YOUNG_DRIVER * rentalDays;
-    }
-
-    if (weekendCount > 0) {
-        totalPrice *= 1 + WEEKEND_SURCHARGE_PERCENT * (weekendCount / rentalDays);
     }
 
     return `$${totalPrice.toFixed(2)}`;
