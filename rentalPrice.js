@@ -1,3 +1,4 @@
+
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const HIGH_SEASON_START_MONTH = 4; // May
 const HIGH_SEASON_END_MONTH = 10; // October
